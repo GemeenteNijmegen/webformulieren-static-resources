@@ -1,0 +1,2 @@
+# Static resources voor webformulieren
+
