@@ -1,0 +1,15 @@
+{
+  "environmentname": "prod",
+  "production": true,
+  "formStoreUrl": "https://app6.nijmegen.nl/form",
+  "authenticationUrl": "https://app6.nijmegen.nl/authentication",
+  "proxyUrl": "https://app6.nijmegen.nl/api",
+  "allowedDomains": [
+    "app6.nijmegen.nl"
+  ],
+  "disallowedRoutes": [],
+  "routerUserHash": true,
+  "defaultCallbackUrl": "https://www.nijmegen.nl",
+  "formioNestedFormUrl": "https://app6.nijmegen.nl/form/nested",
+  "allowedEndpoint": false
+}
