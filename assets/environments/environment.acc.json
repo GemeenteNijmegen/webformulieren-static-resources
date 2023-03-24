@@ -1,0 +1,19 @@
+{
+  "environmentname": "acc",
+  "production": true,
+  "formStoreUrl": "https://app6-accp.nijmegen.nl/form",
+  "authenticationUrl": "https://app6-accp.nijmegen.nl/authentication",
+  "proxyUrl": "https://app6-accp.nijmegen.nl/api",
+  "formIOAppUrl": "https://nijmegen-nijmegen.form.io",
+  "formIOApiUrl": "https://nijmegen-nijmegen.form.io",
+  "allowedDomains": [
+    "localhost:8010",
+    "localhost:8011",
+    "localhost:8012"
+  ],
+  "disallowedRoutes": [],
+  "routerUserHash": true,
+  "defaultCallbackUrl": "https://app6-accp.nijmegen.nl",
+  "formioNestedFormUrl": "https://app6-accp.nijmegen.nl/form/nested",
+  "allowedEndpoint": true
+}
