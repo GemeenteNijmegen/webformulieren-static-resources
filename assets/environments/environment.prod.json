@@ -1,14 +1,14 @@
 {
   "environmentname": "prod",
   "production": true,
-  "formStoreUrl": "/form",
-  "authenticationUrl": "/authentication",
-  "proxyUrl": "/api",
+  "formStoreUrl": "https://app6.nijmegen.nl/form",
+  "authenticationUrl": "https://app6.nijmegen.nl/authentication",
+  "proxyUrl": "https://app6.nijmegen.nl/api",
   "allowedDomains": [],
   "disallowedRoutes": [],
   "routerUserHash": true,
   "defaultCallbackUrl": "https://www.nijmegen.nl",
-  "formioNestedFormUrl": "/form/nested",
+  "formioNestedFormUrl": "https://app6.nijmegen.nl/form/nested",
   "allowedEndpoint": false,
   "displayVersion": false
 }
