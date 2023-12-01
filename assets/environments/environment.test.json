@@ -1,17 +1,14 @@
 {
   "environmentname": "tst",
-  "production": false,
+  "production": true,
   "formStoreUrl": "https://edienst-nijmegen.yourrequest.nl/form",
-  "authenticationUrl": "https://edienst-nijmegen.yourrequest.nl/authentication",
-  "proxyUrl": "https://edienst-nijmegen.yourrequest.nl/api",
-  "allowedDomains": [
-    "localhost:8000",
-    "localhost:8080",
-    "localhost:8787"
-  ],
+  "authenticationUrl": "/authentication",
+  "proxyUrl": "/api",
+  "allowedDomains": [],
   "disallowedRoutes": [],
   "routerUserHash": true,
   "defaultCallbackUrl": "https://edienst-nijmegen.yourrequest.nl",
   "formioNestedFormUrl": "https://edienst-nijmegen.yourrequest.nl/form/nested",
-  "allowedEndpoint": true
+  "allowedEndpoint": true,
+  "displayVersion": true
 }
