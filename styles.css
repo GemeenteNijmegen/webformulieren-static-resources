@@ -16080,6 +16080,10 @@ td[ref*="datagrid-"] .formio-component-adres_nijmegen .control-label--hidden {
   font-size: 1.5rem;
   background-color: white;
   color: #585858; }
+.project-page .navbar .dropdown-menu.row {
+  display: none !important; }
+.project-page .navbar .dropdown-menu.row.show {
+  display: block !important; }
 :root {
   --blue: #2780E3;
   --indigo: #6610f2;
