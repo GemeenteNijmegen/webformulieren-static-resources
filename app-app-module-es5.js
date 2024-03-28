@@ -128140,6 +128140,9 @@
           this.sessionExpiredTimer = 0; // in minutes, when to show the session popup, due to inactivity
 
           this.sessionStartDate = new Date();
+          this.sessionRefreshDate = new Date();
+          this.sessionRefreshTimer = 30 * 1000; // every 30 seconds, when to refresh the session
+
           this.initializeApp();
         }
 
@@ -128235,16 +128238,27 @@
             this.sessionModal = false;
             this.resetSessionTimer();
             this.authService.refreshToken();
+            this.sessionRefreshDate = new Date();
           }
         }, {
           key: "sessionTimerChecker",
           value: function sessionTimerChecker() {
-            var now = new Date();
+            var now = new Date(); // Trigger refresh token
+
+            var sessionTriggerRefreshDate = new Date(this.sessionRefreshDate.getTime() + this.sessionRefreshTimer);
+
+            if (now >= sessionTriggerRefreshDate) {
+              this.authService.refreshToken();
+              this.sessionRefreshDate = new Date();
+            } // Trigger inactivity modal
+
+
             var sessionInactivityTimerDate = new Date(this.sessionStartDate.getTime() + this.sessionInactivityTimer);
 
             if (now >= sessionInactivityTimerDate) {
               this.showSessionModal();
-            }
+            } // Trigger logout
+
 
             var sessionExpiredTimerDate = new Date(this.sessionStartDate.getTime() + this.sessionExpiredTimer);
 
