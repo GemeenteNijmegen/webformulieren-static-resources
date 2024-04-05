@@ -745,11 +745,21 @@ class AuthService {
     this.isAuthenticatedSubject.next(false); // reset current user
   }
   // eslint-disable-next-line 
-  loadUserProfile() {
-    this.getUserProfile().subscribe(profile => {
-      if (profile) {
-        this.userProfileSubject.next(profile);
-        this.setIsAuthenticated(true);
+  loadUserProfile(enableRetry = false) {
+    this.getUserProfile().subscribe({
+      next: profile => {
+        if (profile) {
+          this.userProfileSubject.next(profile);
+          this.setIsAuthenticated(true);
+        }
+      },
+      error: error => {
+        if (enableRetry) {
+          console.warn('Refresh unsuccessful, retrying: ', error);
+          this.loadUserProfile();
+        } else {
+          this.router.navigateByUrl('/error');
+        }
       }
     });
   }
@@ -785,7 +795,7 @@ class AuthService {
     return null;
   }
   refreshToken() {
-    this.loadUserProfile();
+    this.loadUserProfile(true);
   }
   /*public setCurrentUser(authResponse: AuthResponse): void {
       this.currentUser = authResponse;
@@ -3243,7 +3253,7 @@ class CustomInterceptor {
             url: response.url
           });
         } else {
-          if (!response.url.includes('/address')) {
+          if (!response.url.includes('/address') && !response.url.includes('/authentication/user/profile')) {
             this.router.navigateByUrl('/error');
           }
           throw new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpErrorResponse({
@@ -3613,14 +3623,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function StartPaymentComponent_div_12_Template(rf, ctx) {
+function StartPaymentComponent_div_16_Template(rf, ctx) {
   if (rf & 1) {
     const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "div")(1, "p");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](3, "a", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function StartPaymentComponent_div_12_Template_a_click_3_listener() {
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](3, "a", 9);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function StartPaymentComponent_div_16_Template_a_click_3_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r3);
       const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
       return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r2.startPayment());
@@ -3634,16 +3644,16 @@ function StartPaymentComponent_div_12_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate2"](" U moet nog \u20AC ", ctx_r0.currencyFormat(), " betalen voor uw inzending met kenmerk ", ctx_r0.reference, ". Betaal direct via onderstaande link. ");
   }
 }
-function StartPaymentComponent_div_13_Template(rf, ctx) {
+function StartPaymentComponent_div_17_Template(rf, ctx) {
   if (rf & 1) {
     const _r5 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "div")(1, "p");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](3, "a", 9);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](3, "a", 10);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](4, "contact met ons opnemen");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](5, "a", 10);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function StartPaymentComponent_div_13_Template_a_click_5_listener() {
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](5, "a", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function StartPaymentComponent_div_17_Template_a_click_5_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r5);
       const ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
       return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r4.getCallbackUrl());
@@ -3733,9 +3743,9 @@ StartPaymentComponent.ɵfac = function StartPaymentComponent_Factory(t) {
 StartPaymentComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineComponent"]({
   type: StartPaymentComponent,
   selectors: [["app-start-payment"]],
-  decls: 19,
+  decls: 23,
   vars: 2,
-  consts: [[1, "whitespace"], [1, "lesswhitespace"], ["id", "main-content"], [1, "row", "break"], [1, "pdflink", 3, "href", "click"], [4, "ngIf"], ["id", "overlay"], [1, "spinner"], [1, "btn", "btn-primary", "form-button", 3, "click"], ["href", "https://www.nijmegen.nl/over-de-gemeente/contact/", "target", "_blank", "rel", "noopener noreferrer", "data-auth", "NotApplicable", "data-linkindex", "2"], [1, "btn", "btn-secondary", "form-button", 3, "click"]],
+  consts: [[1, "whitespace"], [1, "lesswhitespace"], ["id", "main-content"], [1, "row", "break"], [1, "pdflink", 3, "href", "click"], ["href", "https://mijn.nijmegen.nl"], [4, "ngIf"], ["id", "overlay"], [1, "spinner"], [1, "btn", "btn-primary", "form-button", 3, "click"], ["href", "https://www.nijmegen.nl/over-de-gemeente/contact/", "target", "_blank", "rel", "noopener noreferrer", "data-auth", "NotApplicable", "data-linkindex", "2"], [1, "btn", "btn-secondary", "form-button", 3, "click"]],
   template: function StartPaymentComponent_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](0, "app-header")(1, "div", 0)(2, "div", 1);
@@ -3749,18 +3759,24 @@ StartPaymentComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODUL
         return ctx.openPDF(ctx.pdfurl);
       });
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](11, "bewaren als PDF document");
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](12, StartPaymentComponent_div_12_Template, 5, 2, "div", 5);
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](13, StartPaymentComponent_div_13_Template, 7, 1, "div", 5);
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](14, "div", 6);
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](15, "div", 7)(16, "br");
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](17, " Een ogenblik geduld...\n");
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](18, "app-footer");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](12, ". U kunt uw inzending ook terugvinden in ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](13, "a", 5);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](14, "Mijn Nijmegen");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](15, ". ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](16, StartPaymentComponent_div_16_Template, 5, 2, "div", 6);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](17, StartPaymentComponent_div_17_Template, 7, 1, "div", 6);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](18, "div", 7);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](19, "div", 8)(20, "br");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](21, " Een ogenblik geduld...\n");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](22, "app-footer");
     }
     if (rf & 2) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](12);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](16);
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx.showPaymentDetails);
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx.showReturnButton);
@@ -3842,9 +3858,9 @@ PaymentsuccessfulComponent.ɵfac = function PaymentsuccessfulComponent_Factory(t
 PaymentsuccessfulComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineComponent"]({
   type: PaymentsuccessfulComponent,
   selectors: [["app-paymentsuccessful"]],
-  decls: 15,
+  decls: 19,
   vars: 2,
-  consts: [[1, "whitespace"], [1, "lesswhitespace"], ["id", "main-content"], [1, "row", "break"], [1, "pdflink", 3, "href", "click"], [1, "btn", "btn-secondary", "form-button", 3, "click"]],
+  consts: [[1, "whitespace"], [1, "lesswhitespace"], ["id", "main-content"], [1, "row", "break"], [1, "pdflink", 3, "href", "click"], ["href", "https://mijn.nijmegen.nl"], [1, "btn", "btn-secondary", "form-button", 3, "click"]],
   template: function PaymentsuccessfulComponent_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](0, "app-header")(1, "div", 0)(2, "div", 1);
@@ -3858,14 +3874,20 @@ PaymentsuccessfulComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_
         return ctx.openPDF(ctx.pdfurl);
       });
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](11, "bewaren als PDF document");
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](12, "a", 5);
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function PaymentsuccessfulComponent_Template_a_click_12_listener() {
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](12, ". U kunt uw inzending ook terugvinden in ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](13, "a", 5);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](14, "Mijn Nijmegen");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](15, ". ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](16, "a", 6);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function PaymentsuccessfulComponent_Template_a_click_16_listener() {
         return ctx.getCallbackUrl();
       });
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](13, " Afsluiten ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](17, " Afsluiten ");
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()()()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](14, "app-footer");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](18, "app-footer");
     }
     if (rf & 2) {
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](9);
@@ -4498,9 +4520,9 @@ ThanksComponent.ɵfac = function ThanksComponent_Factory(t) {
 ThanksComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineComponent"]({
   type: ThanksComponent,
   selectors: [["app-thanks-component"]],
-  decls: 15,
+  decls: 19,
   vars: 1,
-  consts: [[1, "whitespace"], [1, "lesswhitespace"], ["id", "main-content"], [1, "row", "break"], [1, "pdflink", 3, "href", "click"], [1, "btn", "btn-secondary", "form-button", 3, "href"]],
+  consts: [[1, "whitespace"], [1, "lesswhitespace"], ["id", "main-content"], [1, "row", "break"], [1, "pdflink", 3, "href", "click"], ["href", "https://mijn.nijmegen.nl"], [1, "btn", "btn-secondary", "form-button", 3, "href"]],
   template: function ThanksComponent_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](0, "app-header")(1, "div", 0)(2, "div", 1);
@@ -4514,14 +4536,20 @@ ThanksComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__[
         return ctx.openPDF(ctx.pdfurl);
       });
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](11, "bewaren als PDF document");
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](12, "a", 5);
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](13, " Afsluiten ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](12, ". U kunt uw inzending ook terugvinden in ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](13, "a", 5);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](14, "Mijn Nijmegen");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](15, ". ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](16, "a", 6);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](17, " Afsluiten ");
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()()()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](14, "app-footer");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](18, "app-footer");
     }
     if (rf & 2) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](12);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](16);
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("href", ctx.getCallbackUrl(), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵsanitizeUrl"]);
     }
   },
@@ -52923,7 +52951,7 @@ Formio.projectUrlSet = false;
 Formio.plugins = [];
 Formio.cache = {};
 Formio.Providers = _providers["default"];
-Formio.version = '4.19.0';
+Formio.version = '4.19.1';
 Formio.pathType = '';
 Formio.events = new _EventEmitter["default"]();
 Formio.cdn = new _CDN["default"]();
@@ -54344,11 +54372,12 @@ __webpack_require__(/*! core-js/modules/es.array.index-of.js */ 13382);
 __webpack_require__(/*! core-js/modules/es.regexp.exec.js */ 78068);
 __webpack_require__(/*! core-js/modules/es.object.assign.js */ 17204);
 __webpack_require__(/*! core-js/modules/web.timers.js */ 69443);
+__webpack_require__(/*! core-js/modules/es.string.trim.js */ 83388);
+__webpack_require__(/*! core-js/modules/es.array.concat.js */ 72246);
 __webpack_require__(/*! core-js/modules/es.array.is-array.js */ 20455);
 __webpack_require__(/*! core-js/modules/es.array.for-each.js */ 77628);
 __webpack_require__(/*! core-js/modules/es.object.to-string.js */ 1681);
 __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ 4018);
-__webpack_require__(/*! core-js/modules/es.array.concat.js */ 72246);
 __webpack_require__(/*! core-js/modules/es.array.filter.js */ 13479);
 __webpack_require__(/*! core-js/modules/es.parse-int.js */ 89660);
 __webpack_require__(/*! core-js/modules/es.array.includes.js */ 27059);
@@ -54807,11 +54836,13 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
 
     // See if we need to restore the draft from a user.
     if (_this2.options.saveDraft && !_this2.options.skipDraftRestore) {
-      var user = _Formio.GlobalFormio.getUser();
-      // Only restore a draft if the submission isn't explicitly set.
-      if (user && !_this2.submissionSet) {
-        _this2.restoreDraft(user._id);
-      }
+      _this2.formReady.then(function () {
+        var user = _Formio.GlobalFormio.getUser();
+        // Only restore a draft if the submission isn't explicitly set.
+        if (user && !_this2.submissionSet) {
+          _this2.restoreDraft(user._id);
+        }
+      });
     }
     _this2.component.clearOnHide = false;
 
@@ -55342,6 +55373,13 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
         return _this9.submissionReadyReject(err);
       });
     }
+  }, {
+    key: "handleDraftError",
+    value: function handleDraftError(errName, errDetails, restoreDraft) {
+      var errorMessage = _lodash["default"].trim("".concat(this.t(errName), " ").concat(errDetails || ''));
+      console.warn(errorMessage);
+      this.emit(restoreDraft ? 'restoreDraftError' : 'saveDraftError', errDetails || errorMessage);
+    }
 
     /**
      * Saves a submission draft.
@@ -55354,11 +55392,11 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
         return;
       }
       if (!this.formio) {
-        console.warn(this.t('saveDraftInstanceError'));
+        this.handleDraftError('saveDraftInstanceError');
         return;
       }
       if (!_Formio.GlobalFormio.getUser()) {
-        console.warn(this.t('saveDraftAuthError'));
+        this.handleDraftError('saveDraftAuthError');
         return;
       }
       var draft = (0, _utils.fastCloneDeep)(this.submission);
@@ -55371,6 +55409,9 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
           _this10.submission._id = sub._id;
           _this10.savingDraft = false;
           _this10.emit('saveDraft', sub);
+        })["catch"](function (err) {
+          _this10.savingDraft = false;
+          _this10.handleDraftError('saveDraftError', err);
         });
       }
     }
@@ -55385,7 +55426,7 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
     value: function restoreDraft(userId) {
       var _this11 = this;
       if (!this.formio) {
-        console.warn(this.t('restoreDraftInstanceError'));
+        this.handleDraftError('restoreDraftInstanceError', null, true);
         return;
       }
       this.savingDraft = true;
@@ -55407,6 +55448,10 @@ var Webform = /*#__PURE__*/function (_NestedDataComponent) {
         _this11.draftEnabled = true;
         _this11.savingDraft = false;
         _this11.emit('restoreDraft', null);
+      })["catch"](function (err) {
+        _this11.draftEnabled = true;
+        _this11.savingDraft = false;
+        _this11.handleDraftError('restoreDraftError', err, true);
       });
     }
   }, {
@@ -87395,6 +87440,12 @@ var FormComponent = /*#__PURE__*/function (_Component) {
       if (this.options.preview) {
         options.preview = this.options.preview;
       }
+      if (this.options.saveDraft) {
+        options.saveDraft = this.options.saveDraft;
+      }
+      if (this.options.saveDraftThrottle) {
+        options.saveDraftThrottle = this.options.saveDraftThrottle;
+      }
       return options;
     }
   }, {
@@ -87619,6 +87670,10 @@ var FormComponent = /*#__PURE__*/function (_Component) {
           _this4.subForm.nosubmit = true;
           _this4.subForm.root = _this4.root;
           _this4.subForm.localRoot = _this4.isNestedWizard ? _this4.localRoot : _this4.subForm;
+          if (_this4.parent) {
+            _this4.subForm.draftEnabled = _this4.parent.draftEnabled;
+            _this4.subForm.savingDraft = _this4.parent.savingDraft;
+          }
           _this4.restoreValue();
           _this4.valueChanged = _this4.hasSetValue;
           _this4.onChange();
@@ -93906,6 +93961,7 @@ var SelectComponent = /*#__PURE__*/function (_ListComponent) {
       var _this4 = this,
         _this$choices,
         _this$choices$input;
+      this.selectItems = items;
       // If the items is a string, then parse as JSON.
       if (typeof items == 'string') {
         try {
@@ -94427,7 +94483,7 @@ var SelectComponent = /*#__PURE__*/function (_ListComponent) {
         this.addFocusBlurEvents(input);
         this.triggerUpdate(null, true);
         if (this.visible) {
-          this.setItems(this.selectOptions || []);
+          this.setItems(this.selectItems || []);
         }
         this.focusableElement = input;
         this.addEventListener(input, 'focus', function () {
@@ -117403,6 +117459,8 @@ var _default = {
   saveDraftInstanceError: 'Cannot save draft because there is no formio instance.',
   saveDraftAuthError: 'Cannot save draft unless a user is authenticated.',
   restoreDraftInstanceError: 'Cannot restore draft because there is no formio instance.',
+  saveDraftError: 'Unable to save draft.',
+  restoreDraftError: 'Unable to restore draft.',
   time: 'Invalid time',
   cancelButtonAriaLabel: 'Cancel button. Click to reset the form',
   previousButtonAriaLabel: 'Previous button. Click to go back to the previous tab',
@@ -120659,7 +120717,7 @@ var IsEqualTo = /*#__PURE__*/function (_ConditionOperator) {
         comparedValue = _ref.comparedValue,
         instance = _ref.instance,
         conditionComponentPath = _ref.conditionComponentPath;
-      if (value && comparedValue && _typeof(value) !== _typeof(comparedValue) && _lodash["default"].isString(comparedValue)) {
+      if ((value || value === false) && comparedValue && _typeof(value) !== _typeof(comparedValue) && _lodash["default"].isString(comparedValue)) {
         try {
           comparedValue = JSON.parse(comparedValue);
         }
