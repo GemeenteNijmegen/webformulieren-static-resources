@@ -772,11 +772,9 @@ class AuthService {
       withCredentials: true
     };
     const formConfig = this.getFormConfig();
-    if (formConfig != null) {
-      return this.httpClient.get(`${this.environment.authenticationUrl}/user/profile?formName=` + formConfig.formName, httpOptions);
-    } else {
-      return this.httpClient.get(`${this.environment.authenticationUrl}/user/profile`, httpOptions);
-    }
+    const configParam = formConfig ? '&formName=' + formConfig.formName : '';
+    const burstParam = new Date().valueOf();
+    return this.httpClient.get(`${this.environment.authenticationUrl}/user/profile?t=${burstParam}${configParam}`, httpOptions);
   }
   getUserProfileAsEmployee(formName, identification) {
     const httpOptions = {
