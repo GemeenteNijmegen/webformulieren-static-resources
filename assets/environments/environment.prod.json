@@ -4,12 +4,11 @@
   "formStoreUrl": "https://app6.nijmegen.nl/form",
   "authenticationUrl": "https://app6.nijmegen.nl/authentication",
   "proxyUrl": "https://app6.nijmegen.nl/api",
-  "allowedDomains": [
-    "app6.nijmegen.nl"
-  ],
+  "allowedDomains": [],
   "disallowedRoutes": [],
   "routerUserHash": true,
   "defaultCallbackUrl": "https://www.nijmegen.nl",
   "formioNestedFormUrl": "https://app6.nijmegen.nl/form/nested",
-  "allowedEndpoint": false
+  "allowedEndpoint": false,
+  "displayVersion": false
 }
