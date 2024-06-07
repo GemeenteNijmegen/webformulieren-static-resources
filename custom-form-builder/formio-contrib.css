@@ -22683,9 +22683,7 @@ label.btn input[type="radio"]:disabled:not(:checked) + span:before {
 label.btn input[type="checkbox"] + label {
   position: relative;
   display: inline-block;
-  height: 1.5625rem;
   padding-left: 35px;
-  line-height: 1.5625rem;
   cursor: pointer;
   user-select: none; }
 
