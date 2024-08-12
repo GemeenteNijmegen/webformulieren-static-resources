@@ -2387,7 +2387,8 @@ class FormComponent {
       if (currentComponent.path === key) {
         return currentComponent;
       } else if (currentComponent.components?.length > 0) {
-        return this.findComponentBySubmissionKey(key, currentComponent.components);
+        const found = this.findComponentBySubmissionKey(key, currentComponent.components);
+        if (found) return found;
       }
     }
     return null;
