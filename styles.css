@@ -25961,7 +25961,9 @@ label.btn input[type="checkbox"]:disabled:checked + label:after {
   font-weight: 700; }
 
 .formpage table {
-  margin-bottom: 25px; }
+  margin-bottom: 25px;
+  table-layout: fixed;
+  width: 100%; }
 
 @media only screen and (max-width: 600px) {
   .td-label {
