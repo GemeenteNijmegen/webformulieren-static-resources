@@ -21993,7 +21993,7 @@ ThanksComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__[
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](13, "a", 5);
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](14, "Mijn Nijmegen");
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](15, ". ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](15, " als u dit formulier heeft ingevuld nadat u heeft ingelogd met Digid, Yivi of eHerkenning. ");
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](16, "a", 6);
       _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](17, " Afsluiten ");
